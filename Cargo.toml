@@ -1,6 +1,6 @@
 [package]
 name = "chan-down"
-version = "0.1.0"
+version = "1.0.0"
 authors = ["Ivan Molina Rebolledo <ivanmolinarebolledo@gmail.com>"]
 edition = "2018"
 
