@@ -1,4 +1,4 @@
-# Rusutologs
+# Chan-down
 
 A reimplementation of [4chan-downloader](https://github.com/Exceen/4chan-downloader) in Rust. 
 
