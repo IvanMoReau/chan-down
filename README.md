@@ -1,6 +1,7 @@
 # Chan-down
 
-A reimplementation of [4chan-downloader](https://github.com/Exceen/4chan-downloader) in Rust. 
+A reimplementation of [4chan-downloader](https://github.com/Exceen/4chan-downloader) in Rust.
+Current support: 2chan, 4chan, 8chan, 420chan, Wizchan, Lainchan, Hispachan, Lolnada
 
 ## Table of Contents
 
@@ -19,7 +20,15 @@ cargo build
 ## Usage
 
 ```console
-./target/debug/chan-down.exe <url>
+    chan-down [OPTIONS]
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+    -c, --chan <CHAN>    Service to work with (default: 4chan)
+    -u, --url <URL>      Url to work with
 ```
 
 ## Support
