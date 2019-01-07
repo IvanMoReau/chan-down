@@ -1,4 +1,3 @@
-use std::env;
 use std::fs;
 use std::io;
 use std::path::Path;
@@ -15,18 +14,11 @@ fn download_thread(thread_link: &str, chan: &str) -> Result<(), Error> {
         rusutologs::error("URL is missing.");
         std::process::exit(1)
     }
-
     let thread_parse: Vec<&str> = thread_link.split('/').collect();
     let domain = thread_parse[2].clone();
     let th_ps_th: Vec<&str> = thread_parse[5].split('#').collect();
     let board: &str = thread_parse[3];
-    let mut thread: &str = th_ps_th[0];
-
-    if thread_parse.len() > 6 {
-        let th_ps_th_tmp: Vec<&str> = thread_parse[6].split('#').collect();
-        let thread_tmp: &str = th_ps_th_tmp[0];
-    }
-
+    let thread: &str = th_ps_th[0];
     if Path::new(".")
         .join("downloads")
         .join(chan)
@@ -41,7 +33,7 @@ fn download_thread(thread_link: &str, chan: &str) -> Result<(), Error> {
     }
 
     let body = reqwest::get(thread_link)?.text()?;
-    let mut regexx = Regex::new(r"(\x2f\x2flolnada\.org\x2f\w+\x2fsrc\x2flolnada\.org-\d+\.\w+)").unwrap();
+    let mut regexx = Regex::new(r"(\x2f\x2fi\.4cdn\.org\x2f\w+\x2f\d+\.\w+)").unwrap();
     //Funcionan: 4chan, 2chan, lolnada, wizchan, hispachan; demás sin testear.
     match chan {
         "4chan" => {regexx = Regex::new(r"(\x2f\x2fi\.4cdn\.org\x2f\w+\x2f\d+\.\w+)").unwrap();}
@@ -66,16 +58,13 @@ fn download_thread(thread_link: &str, chan: &str) -> Result<(), Error> {
             "lainchan" => {glink = format!("https://{}{}", domain, &link[0]);}
             _ => {glink = format!("https:{}", &link[0]);}
         }
-
         let mut response = reqwest::get(&glink)?;
-        //let mut response = reqwest::get(&link[0])?;
         let fname = response
             .url()
             .path_segments()
             .and_then(|segments| segments.last())
             .and_then(|name| if name.is_empty() { None } else { Some(name) })
             .unwrap_or("tmp.bin");
-
         let fname2 = Path::new(".")
             .join("downloads")
             .join(chan)
@@ -88,7 +77,6 @@ fn download_thread(thread_link: &str, chan: &str) -> Result<(), Error> {
             fname, fname2
             );
             rusutologs::info(&stringinfo);
-
             let mut out = fs::File::create(fname2).expect("Fail");
             io::copy(&mut response, &mut out);
         }
