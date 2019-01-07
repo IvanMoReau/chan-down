@@ -82,14 +82,17 @@ fn download_thread(thread_link: &str, chan: &str) -> Result<(), Error> {
             .join(board)
             .join(thread)
             .join(fname);
-        let stringinfo = format!(
+        if fname2.exists() == false {
+            let stringinfo = format!(
             "file to download: '{}' will be located under: {:?}",
             fname, fname2
-        );
-        rusutologs::info(&stringinfo);
+            );
+            rusutologs::info(&stringinfo);
 
-        let mut out = fs::File::create(fname2).expect("Fail");
-        io::copy(&mut response, &mut out);
+            let mut out = fs::File::create(fname2).expect("Fail");
+            io::copy(&mut response, &mut out);
+        }
+        
     }
     rusutologs::successful("Ok");
     Ok(())
