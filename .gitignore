@@ -3,4 +3,7 @@
 *.py
 target/*
 downloads/*
+etst
+oldmain.rs
+file.txt
 
